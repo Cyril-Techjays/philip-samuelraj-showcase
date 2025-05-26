@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 
 interface CurtainProps {
@@ -14,7 +13,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
 
   useEffect(() => {
     if (isVisible) {
-      // Component should render and start animation
+      // Reset states and force render
       setShouldRender(true);
       setShowText(false);
       setStartExit(false);
@@ -41,13 +40,10 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
         clearTimeout(exitTimer);
         clearTimeout(completeTimer);
       };
-    } else {
-      // Reset states when not visible
-      setShowText(false);
-      setStartExit(false);
     }
   }, [isVisible, onComplete]);
 
+  // Always render when animation is active
   if (!shouldRender) {
     return null;
   }
@@ -56,13 +52,17 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
     <div 
       className="fixed inset-0 bg-black z-[200] flex items-center justify-center"
       style={{
-        transform: !isVisible || startExit ? 'translateY(-100%)' : 'translateY(0%)',
+        transform: startExit ? 'translateY(-100%)' : 'translateY(0%)',
         transition: 'transform 1000ms cubic-bezier(0.4, 0.0, 0.2, 1)'
       }}
     >
-      <h1 className={`text-white text-4xl md:text-6xl font-light tracking-wide transition-opacity duration-500 ease-in-out ${
-        showText ? 'opacity-100' : 'opacity-0'
-      }`}>
+      <h1 
+        className="text-white text-4xl md:text-6xl font-light tracking-wide"
+        style={{
+          opacity: showText ? 1 : 0,
+          transition: 'opacity 500ms ease-in-out'
+        }}
+      >
         {sectionName}
       </h1>
     </div>
