@@ -69,12 +69,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
     return null;
   }
 
-  // Determine the transform based on animation state
-  const getTransform = () => {
-    if (slideUp) return '-translate-y-full'; // Slide up (exit)
-    if (slideDown) return 'translate-y-0'; // Slide down (show)
-    return '-translate-y-full'; // Initial state (hidden above)
-  };
+  
 
   return (
     <div 
