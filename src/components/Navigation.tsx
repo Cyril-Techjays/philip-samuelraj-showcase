@@ -1,4 +1,3 @@
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Globe } from "lucide-react";
 import { useState } from "react";
@@ -9,7 +8,6 @@ const Navigation = () => {
   const navigate = useNavigate();
   const [curtainVisible, setCurtainVisible] = useState(false);
   const [currentSection, setCurrentSection] = useState("");
-  const [pendingNavigation, setPendingNavigation] = useState("");
 
   const navItems = [
     { href: "/techjays-overview", label: "Techjays Overview" },
@@ -26,16 +24,16 @@ const Navigation = () => {
     if (location.pathname === href) return;
     
     setCurrentSection(label);
-    setPendingNavigation(href);
     setCurtainVisible(true);
+    
+    // Navigate to new page while curtain is down (at 1 second)
+    setTimeout(() => {
+      navigate(href);
+    }, 1000);
   };
 
   const handleCurtainComplete = () => {
     setCurtainVisible(false);
-    if (pendingNavigation) {
-      navigate(pendingNavigation);
-      setPendingNavigation("");
-    }
   };
 
   return (
