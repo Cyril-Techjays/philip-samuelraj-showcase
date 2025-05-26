@@ -45,10 +45,14 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
     }
   }, [isVisible, onComplete]);
 
+  if (!isVisible && !startExit) {
+    return null;
+  }
+
   return (
     <div 
-      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-500 ease-in-out ${
-        isVisible && !startExit ? 'translate-y-0' : '-translate-y-full'
+      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-1000 ease-in-out ${
+        !isVisible || startExit ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
       <h1 className={`text-white text-4xl md:text-6xl font-light tracking-wide transition-opacity duration-300 ${
