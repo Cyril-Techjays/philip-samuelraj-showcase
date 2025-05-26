@@ -72,13 +72,19 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   
 
   return (
-    <div 
-      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-1000 ${getTransform()}`}
+    div 
+      className="fixed inset-0 bg-black z-[200] flex items-center justify-center"
+      style={{
+        transform: animationPhase === 'visible' ? 'translateY(0%)' : 'translateY(-100%)',
+        transition: 'transform 2000ms cubic-bezier(0.4, 0.0, 0.2, 1)'
+      }}
     >
       <h1 
-        className={`text-white text-4xl md:text-6xl font-light tracking-wide transition-opacity duration-500 ${
-          animationPhase ? 'opacity-100' : 'opacity-0'
-        }`}
+        className="text-white text-4xl md:text-6xl font-light tracking-wide"
+        style={{
+          opacity: showText ? 1 : 0,
+          transition: 'opacity 500ms ease-in-out'
+        }}
       >
         {sectionName}
       </h1>
