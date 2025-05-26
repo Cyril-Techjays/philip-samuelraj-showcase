@@ -7,47 +7,37 @@ interface CurtainProps {
   onComplete: () => void;
 }
 
-type AnimationPhase = 'hidden' | 'down' | 'up';
-
 const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   const [showText, setShowText] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const [animationPhase, setAnimationPhase] = useState<AnimationPhase>('hidden');
+  const [slideUp, setSlideUp] = useState(false);
 
   useEffect(() => {
     if (isVisible) {
-      // Mount the component
-      setIsMounted(true);
-      setAnimationPhase('hidden');
+      // Reset states
+      setSlideUp(false);
+      setShowText(false);
       
-      // Start slide down animation
-      const slideDownTimer = setTimeout(() => {
-        setAnimationPhase('down');
-      }, 50);
-
       // Show text after curtain slides down
       const textTimer = setTimeout(() => {
         setShowText(true);
-      }, 1000); // 1 second for slide down animation
+      }, 1000);
 
-      // Start hiding text
+      // Hide text
       const hideTimer = setTimeout(() => {
         setShowText(false);
-      }, 2500); // Show text for 1.5 seconds
+      }, 2500);
 
       // Start slide up animation
       const slideUpTimer = setTimeout(() => {
-        setAnimationPhase('up');
-      }, 3000); // Start sliding up after 3 seconds
+        setSlideUp(true);
+      }, 3000);
 
-      // Complete the animation and unmount
+      // Complete after slide up animation finishes
       const completeTimer = setTimeout(() => {
-        setIsMounted(false);
         onComplete();
-      }, 4000); // Unmount after slide up animation completes
+      }, 4000);
 
       return () => {
-        clearTimeout(slideDownTimer);
         clearTimeout(textTimer);
         clearTimeout(hideTimer);
         clearTimeout(slideUpTimer);
@@ -56,27 +46,16 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
     }
   }, [isVisible, onComplete]);
 
-  // Don't render if not mounted
-  if (!isMounted && !isVisible) {
+  // Don't render if not visible
+  if (!isVisible) {
     return null;
   }
 
-  const getTransformClass = () => {
-    switch (animationPhase) {
-      case 'hidden':
-        return '-translate-y-full';
-      case 'down':
-        return 'translate-y-0';
-      case 'up':
-        return '-translate-y-full';
-      default:
-        return '-translate-y-full';
-    }
-  };
-
   return (
     <div 
-      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-1000 ${getTransformClass()}`}
+      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-1000 ${
+        slideUp ? '-translate-y-full' : 'translate-y-0'
+      }`}
     >
       <h1 
         className={`text-white text-4xl md:text-6xl font-light tracking-wide transition-opacity duration-500 ${
