@@ -10,10 +10,12 @@ interface CurtainProps {
 const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   const [showText, setShowText] = useState(false);
   const [startExit, setStartExit] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
     if (isVisible) {
-      // Reset states
+      // Component should render and start animation
+      setShouldRender(true);
       setShowText(false);
       setStartExit(false);
       
@@ -30,6 +32,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
 
       // Complete animation after curtain is fully up (4 seconds total)
       const completeTimer = setTimeout(() => {
+        setShouldRender(false);
         onComplete();
       }, 4000);
 
@@ -45,15 +48,13 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
     }
   }, [isVisible, onComplete]);
 
-  if (!isVisible && !startExit) {
+  if (!shouldRender) {
     return null;
   }
 
   return (
     <div 
-      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-1000 ease-in-out ${
-        !isVisible || startExit ? '-translate-y-full' : 'translate-y-0'
-      }`}
+      className="fixed inset-0 bg-black z-[200] flex items-center justify-center"
       style={{
         transform: !isVisible || startExit ? 'translateY(-100%)' : 'translateY(0%)',
         transition: 'transform 1000ms cubic-bezier(0.4, 0.0, 0.2, 1)'
