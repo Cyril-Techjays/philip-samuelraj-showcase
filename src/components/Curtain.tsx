@@ -13,8 +13,6 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   const [shouldRender, setShouldRender] = useState(false);
   const timersRef = useRef<NodeJS.Timeout[]>([]);
 
-
-
   useEffect(() => {
     // Clear any existing timers
     timersRef.current.forEach(timer => clearTimeout(timer));
@@ -69,10 +67,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
     return null;
   }
 
-  
-
   return (
-    
     <div 
       className="fixed inset-0 bg-black z-[200] flex items-center justify-center"
       style={{
