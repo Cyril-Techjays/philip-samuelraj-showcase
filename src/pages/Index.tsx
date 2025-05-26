@@ -48,11 +48,11 @@ const Index = () => {
         
         <main className="pt-20 min-h-screen flex flex-col relative">
           {/* Hero Image positioned at bottom */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
             <img 
               src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
               alt="Philip Samuelraj"
-              className="w-96 h-auto"
+              className="w-[500px] h-auto"
             />
           </div>
 
