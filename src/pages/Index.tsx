@@ -59,9 +59,9 @@ const Index = () => {
         <main className="pt-20 min-h-screen flex flex-col relative overflow-hidden">
           {/* Hero Image positioned at bottom with parallax effect */}
           <div 
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-8 transition-transform duration-100 ease-out"
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-4 transition-transform duration-100 ease-out"
             style={{
-              transform: `translate(-50%, 2rem) translate(${mousePosition.x}px, ${mousePosition.y}px)`
+              transform: `translate(-50%, -1rem) translate(${mousePosition.x}px, ${mousePosition.y}px)`
             }}
           >
             <img 
