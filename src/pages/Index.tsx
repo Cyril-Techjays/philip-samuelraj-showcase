@@ -52,7 +52,7 @@ const Index = () => {
             <img 
               src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
               alt="Philip Samuelraj"
-              className="w-[500px] h-auto"
+              className="w-[700px] h-auto"
             />
           </div>
 
@@ -70,7 +70,7 @@ const Index = () => {
           {/* Bottom Text */}
           <div className="absolute bottom-8 left-0 right-0">
             <div className="overflow-hidden whitespace-nowrap">
-              <div className="animate-marquee inline-block text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight">
+              <div className="animate-marquee inline-block text-8xl md:text-9xl lg:text-[12rem] font-bold text-white tracking-tight">
                 Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — 
               </div>
             </div>
