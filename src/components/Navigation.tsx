@@ -1,8 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
+
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Globe } from "lucide-react";
+import { useState } from "react";
+import Curtain from "./Curtain";
 
 const Navigation = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [curtainVisible, setCurtainVisible] = useState(false);
+  const [currentSection, setCurrentSection] = useState("");
+  const [pendingNavigation, setPendingNavigation] = useState("");
 
   const navItems = [
     { href: "/techjays-overview", label: "Techjays Overview" },
@@ -12,39 +19,67 @@ const Navigation = () => {
     { href: "/contact", label: "Contact" },
   ];
 
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2 text-gray-800 hover:text-gray-600 transition-colors">
-            <span className="text-lg font-semibold">Philip Samuelraj</span>
-          </Link>
-          
-          <div className="flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`text-sm font-medium transition-colors ${
-                  location.pathname === item.href
-                    ? "text-gray-900"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, label: string) => {
+    e.preventDefault();
+    
+    // Don't show curtain if already on the same page
+    if (location.pathname === href) return;
+    
+    setCurrentSection(label);
+    setPendingNavigation(href);
+    setCurtainVisible(true);
+  };
 
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2 px-4 py-2 bg-gray-900 text-white rounded-full text-sm">
-              <Globe size={16} />
-              <span>Located in Menlo Park, CA</span>
+  const handleCurtainComplete = () => {
+    setCurtainVisible(false);
+    if (pendingNavigation) {
+      navigate(pendingNavigation);
+      setPendingNavigation("");
+    }
+  };
+
+  return (
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <Link to="/" className="flex items-center space-x-2 text-gray-800 hover:text-gray-600 transition-colors">
+              <span className="text-lg font-semibold">Philip Samuelraj</span>
+            </Link>
+            
+            <div className="flex items-center space-x-8">
+              {navItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href, item.label)}
+                  className={`text-sm font-medium transition-colors cursor-pointer ${
+                    location.pathname === item.href
+                      ? "text-gray-900"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 px-4 py-2 bg-gray-900 text-white rounded-full text-sm">
+                <Globe size={16} />
+                <span>Located in Menlo Park, CA</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      <Curtain 
+        isVisible={curtainVisible}
+        sectionName={currentSection}
+        onComplete={handleCurtainComplete}
+      />
+    </>
   );
 };
 
