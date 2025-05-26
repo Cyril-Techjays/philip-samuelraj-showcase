@@ -9,53 +9,63 @@ interface CurtainProps {
 
 const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   const [showText, setShowText] = useState(false);
-  const [slideDown, setSlideDown] = useState(false);
-  const [slideUp, setSlideUp] = useState(false);
+  const [animationPhase, setAnimationPhase] = useState<'hidden' | 'visible'>('hidden');
+  const [shouldRender, setShouldRender] = useState(false);
+  const timersRef = useRef<NodeJS.Timeout[]>([]);
+
+
 
   useEffect(() => {
-    if (isVisible) {
-      // Reset states - start with curtain off-screen (up)
-      setSlideDown(false);
-      setSlideUp(false);
-      setShowText(false);
-      
-      // Start slide down animation immediately
-      const slideDownTimer = setTimeout(() => {
-        setSlideDown(true);
-      }, 50);
+    // Clear any existing timers
+    timersRef.current.forEach(timer => clearTimeout(timer));
+    timersRef.current = [];
 
-      // Show text after curtain slides down
+    if (isVisible) {
+      // Start with curtain off-screen and render
+      setShouldRender(true);
+      setShowText(false);
+      setAnimationPhase('hidden');
+      
+      // Slide down to visible after a small delay
+      const slideDownTimer = setTimeout(() => {
+        setAnimationPhase('visible');
+      }, 50);
+      timersRef.current.push(slideDownTimer);
+
+      // Show text after curtain is fully down (2000ms transition + 50ms delay)
       const textTimer = setTimeout(() => {
         setShowText(true);
-      }, 1000);
+      }, 2050);
+      timersRef.current.push(textTimer);
 
-      // Hide text
-      const hideTimer = setTimeout(() => {
-        setShowText(false);
-      }, 2500);
-
-      // Start slide up animation
+      // Hide text and start sliding up
       const slideUpTimer = setTimeout(() => {
-        setSlideUp(true);
-      }, 3000);
+        setShowText(false);
+        setAnimationPhase('hidden');
+      }, 3500); // Give time to read the text
+      timersRef.current.push(slideUpTimer);
 
-      // Complete after slide up animation finishes
+      // Complete animation and cleanup - 3500ms + 2000ms slide up
       const completeTimer = setTimeout(() => {
+        setShouldRender(false);
         onComplete();
-      }, 4000);
+      }, 5500);
+      timersRef.current.push(completeTimer);
 
       return () => {
-        clearTimeout(slideDownTimer);
-        clearTimeout(textTimer);
-        clearTimeout(hideTimer);
-        clearTimeout(slideUpTimer);
-        clearTimeout(completeTimer);
+        timersRef.current.forEach(timer => clearTimeout(timer));
+        timersRef.current = [];
       };
+    } else {
+      // Reset state when not visible
+      setShouldRender(false);
+      setShowText(false);
+      setAnimationPhase('hidden');
     }
   }, [isVisible, onComplete]);
 
-  // Don't render if not visible
-  if (!isVisible) {
+  // Don't render when animation is not active
+  if (!shouldRender) {
     return null;
   }
 
