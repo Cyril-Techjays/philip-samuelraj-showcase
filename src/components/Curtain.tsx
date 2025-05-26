@@ -17,21 +17,21 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
       setShowText(false);
       setStartExit(false);
       
-      // Show text after curtain comes down (0.5s)
+      // Show text after curtain comes down (1s)
       const textTimer = setTimeout(() => {
         setShowText(true);
-      }, 500);
+      }, 1000);
 
-      // Start pulling curtain back up at 1.5 seconds (after navigation happens at 1s)
+      // Start pulling curtain back up at 3 seconds (after navigation happens at 2s)
       const exitTimer = setTimeout(() => {
         setStartExit(true);
         setShowText(false);
-      }, 1500);
+      }, 3000);
 
-      // Complete animation after curtain is fully up (2.5 seconds total)
+      // Complete animation after curtain is fully up (4 seconds total)
       const completeTimer = setTimeout(() => {
         onComplete();
-      }, 2500);
+      }, 4000);
 
       return () => {
         clearTimeout(textTimer);
@@ -55,7 +55,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
         !isVisible || startExit ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
-      <h1 className={`text-white text-4xl md:text-6xl font-light tracking-wide transition-opacity duration-300 ${
+      <h1 className={`text-white text-4xl md:text-6xl font-light tracking-wide transition-opacity duration-500 ${
         showText ? 'opacity-100' : 'opacity-0'
       }`}>
         {sectionName}

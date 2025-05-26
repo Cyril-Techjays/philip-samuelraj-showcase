@@ -1,3 +1,4 @@
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Globe } from "lucide-react";
 import { useState } from "react";
@@ -26,10 +27,10 @@ const Navigation = () => {
     setCurrentSection(label);
     setCurtainVisible(true);
     
-    // Navigate to new page while curtain is down (at 1 second)
+    // Navigate to new page at 2 seconds (middle of 4-second animation)
     setTimeout(() => {
       navigate(href);
-    }, 1000);
+    }, 2000);
   };
 
   const handleCurtainComplete = () => {
