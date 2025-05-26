@@ -72,7 +72,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   
 
   return (
-    div 
+    <div 
       className="fixed inset-0 bg-black z-[200] flex items-center justify-center"
       style={{
         transform: animationPhase === 'visible' ? 'translateY(0%)' : 'translateY(-100%)',
