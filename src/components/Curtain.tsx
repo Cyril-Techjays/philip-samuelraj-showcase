@@ -17,17 +17,21 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
       // Reset states and force render
       setShouldRender(true);
       setShowText(false);
-      setAnimationPhase('initial');
       
-      // Start sliding down after a small delay to ensure component is rendered
+      // Add small delay before setting to initial to prevent jumps
+      setTimeout(() => {
+        setAnimationPhase('initial');
+      }, 10);
+      
+      // Start sliding down after ensuring component is rendered
       const slideDownTimer = setTimeout(() => {
         setAnimationPhase('down');
-      }, 50);
+      }, 100);
 
-      // Show text after curtain is fully down (1.1s total - 50ms delay + 1s animation)
+      // Show text after curtain is fully down (1.2s total - 100ms delay + 1s animation + 100ms buffer)
       const textTimer = setTimeout(() => {
         setShowText(true);
-      }, 1100);
+      }, 1200);
 
       // Start sliding up at 3 seconds
       const slideUpTimer = setTimeout(() => {
@@ -35,11 +39,11 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
         setAnimationPhase('up');
       }, 3000);
 
-      // Complete animation after curtain is fully up (4.1s total)
+      // Complete animation after curtain is fully up - extended to 4300ms to allow full transition
       const completeTimer = setTimeout(() => {
         setShouldRender(false);
         onComplete();
-      }, 4100);
+      }, 4300);
 
       return () => {
         clearTimeout(slideDownTimer);
