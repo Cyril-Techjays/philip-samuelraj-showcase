@@ -69,7 +69,7 @@ const Index = () => {
           <div className="absolute bottom-8 left-0 right-0">
             <div className="overflow-hidden whitespace-nowrap">
               <div className="animate-marquee inline-block text-8xl md:text-9xl lg:text-[12rem] font-bold text-gray-500 tracking-tight">
-                Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — 
+                Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — 
               </div>
             </div>
           </div>
