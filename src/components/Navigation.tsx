@@ -28,14 +28,18 @@ const Navigation = () => {
     setCurrentSection(label);
     setPendingNavigation(href);
     setCurtainVisible(true);
+    
+    // Navigate to new page while curtain is down (at 1.5 seconds)
+    setTimeout(() => {
+      if (href) {
+        navigate(href);
+        setPendingNavigation("");
+      }
+    }, 1500);
   };
 
   const handleCurtainComplete = () => {
     setCurtainVisible(false);
-    if (pendingNavigation) {
-      navigate(pendingNavigation);
-      setPendingNavigation("");
-    }
   };
 
   return (
