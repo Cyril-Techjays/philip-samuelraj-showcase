@@ -43,12 +43,12 @@ const Index = () => {
       </div>
 
       {/* Main Content */}
-      <div className="min-h-screen" style={{ backgroundColor: 'rgba(152,157,159,255)' }}>
+      <div className="min-h-screen" style={{ backgroundColor: '#F5F5F5' }}>
         <Navigation />
         
         <main className="pt-20 min-h-screen flex flex-col relative">
-          {/* Hero Image positioned at bottom */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+          {/* Hero Image positioned at bottom with more spacing from top */}
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4">
             <img 
               src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
               alt="Philip Samuelraj"
