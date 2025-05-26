@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 
 interface CurtainProps {
@@ -8,6 +9,7 @@ interface CurtainProps {
 
 const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   const [showText, setShowText] = useState(false);
+  const [startEntry, setStartEntry] = useState(false);
   const [startExit, setStartExit] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
 
@@ -16,14 +18,20 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
       // Reset states and force render
       setShouldRender(true);
       setShowText(false);
+      setStartEntry(false);
       setStartExit(false);
       
+      // Start entry animation immediately
+      const entryTimer = setTimeout(() => {
+        setStartEntry(true);
+      }, 50); // Small delay to ensure component is rendered
+
       // Show text after curtain comes down (1s)
       const textTimer = setTimeout(() => {
         setShowText(true);
       }, 1000);
 
-      // Start pulling curtain back up at 3 seconds (after navigation happens at 2s)
+      // Start pulling curtain back up at 3 seconds
       const exitTimer = setTimeout(() => {
         setStartExit(true);
         setShowText(false);
@@ -36,6 +44,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
       }, 4000);
 
       return () => {
+        clearTimeout(entryTimer);
         clearTimeout(textTimer);
         clearTimeout(exitTimer);
         clearTimeout(completeTimer);
@@ -43,16 +52,30 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
     }
   }, [isVisible, onComplete]);
 
-  // Always render when animation is active
+  // Don't render when animation is not active
   if (!shouldRender) {
     return null;
   }
+
+  // Three-phase animation logic:
+  // Phase 1: Slide down from top (translateY(-100%) to translateY(0%))
+  // Phase 2: Stay down with text visible
+  // Phase 3: Slide up to top (translateY(0%) to translateY(-100%))
+  const getTransform = () => {
+    if (startExit) {
+      return 'translateY(-100%)'; // Phase 3: slide up
+    } else if (startEntry) {
+      return 'translateY(0%)'; // Phase 2: stay down
+    } else {
+      return 'translateY(-100%)'; // Phase 1: start position (top)
+    }
+  };
 
   return (
     <div 
       className="fixed inset-0 bg-black z-[200] flex items-center justify-center"
       style={{
-        transform: startExit ? 'translateY(-100%)' : 'translateY(0%)',
+        transform: getTransform(),
         transition: 'transform 1000ms cubic-bezier(0.4, 0.0, 0.2, 1)'
       }}
     >
