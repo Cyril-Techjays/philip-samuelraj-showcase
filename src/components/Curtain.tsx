@@ -54,8 +54,12 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
       className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-1000 ease-in-out ${
         !isVisible || startExit ? '-translate-y-full' : 'translate-y-0'
       }`}
+      style={{
+        transform: !isVisible || startExit ? 'translateY(-100%)' : 'translateY(0%)',
+        transition: 'transform 1000ms cubic-bezier(0.4, 0.0, 0.2, 1)'
+      }}
     >
-      <h1 className={`text-white text-4xl md:text-6xl font-light tracking-wide transition-opacity duration-500 ${
+      <h1 className={`text-white text-4xl md:text-6xl font-light tracking-wide transition-opacity duration-500 ease-in-out ${
         showText ? 'opacity-100' : 'opacity-0'
       }`}>
         {sectionName}
