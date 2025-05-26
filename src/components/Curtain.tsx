@@ -9,8 +9,7 @@ interface CurtainProps {
 
 const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   const [showText, setShowText] = useState(false);
-  const [startEntry, setStartEntry] = useState(false);
-  const [startExit, setStartExit] = useState(false);
+  const [animationPhase, setAnimationPhase] = useState<'initial' | 'down' | 'up'>('initial');
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
@@ -18,35 +17,34 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
       // Reset states and force render
       setShouldRender(true);
       setShowText(false);
-      setStartEntry(false);
-      setStartExit(false);
+      setAnimationPhase('initial');
       
-      // Start entry animation immediately
-      const entryTimer = setTimeout(() => {
-        setStartEntry(true);
-      }, 50); // Small delay to ensure component is rendered
+      // Start sliding down after a small delay to ensure component is rendered
+      const slideDownTimer = setTimeout(() => {
+        setAnimationPhase('down');
+      }, 50);
 
-      // Show text after curtain comes down (1s)
+      // Show text after curtain is fully down (1.1s total - 50ms delay + 1s animation)
       const textTimer = setTimeout(() => {
         setShowText(true);
-      }, 1000);
+      }, 1100);
 
-      // Start pulling curtain back up at 3 seconds
-      const exitTimer = setTimeout(() => {
-        setStartExit(true);
+      // Start sliding up at 3 seconds
+      const slideUpTimer = setTimeout(() => {
         setShowText(false);
+        setAnimationPhase('up');
       }, 3000);
 
-      // Complete animation after curtain is fully up (4 seconds total)
+      // Complete animation after curtain is fully up (4.1s total)
       const completeTimer = setTimeout(() => {
         setShouldRender(false);
         onComplete();
-      }, 4000);
+      }, 4100);
 
       return () => {
-        clearTimeout(entryTimer);
+        clearTimeout(slideDownTimer);
         clearTimeout(textTimer);
-        clearTimeout(exitTimer);
+        clearTimeout(slideUpTimer);
         clearTimeout(completeTimer);
       };
     }
@@ -58,16 +56,19 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   }
 
   // Three-phase animation logic:
-  // Phase 1: Slide down from top (translateY(-100%) to translateY(0%))
-  // Phase 2: Stay down with text visible
-  // Phase 3: Slide up to top (translateY(0%) to translateY(-100%))
+  // Phase 1: Start off-screen at top (translateY(-100%))
+  // Phase 2: Slide down and stay visible (translateY(0%))
+  // Phase 3: Slide back up off-screen (translateY(-100%))
   const getTransform = () => {
-    if (startExit) {
-      return 'translateY(-100%)'; // Phase 3: slide up
-    } else if (startEntry) {
-      return 'translateY(0%)'; // Phase 2: stay down
-    } else {
-      return 'translateY(-100%)'; // Phase 1: start position (top)
+    switch (animationPhase) {
+      case 'initial':
+        return 'translateY(-100%)'; // Start off-screen
+      case 'down':
+        return 'translateY(0%)'; // Slide down to visible
+      case 'up':
+        return 'translateY(-100%)'; // Slide up off-screen
+      default:
+        return 'translateY(-100%)';
     }
   };
 
