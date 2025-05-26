@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 interface CurtainProps {
   isVisible: boolean;
@@ -8,78 +8,53 @@ interface CurtainProps {
 
 const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   const [showText, setShowText] = useState(false);
-  const [animationPhase, setAnimationPhase] = useState<'hidden' | 'visible'>('hidden');
-  const [shouldRender, setShouldRender] = useState(false);
-  const timersRef = useRef<NodeJS.Timeout[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Clear any existing timers
-    timersRef.current.forEach(timer => clearTimeout(timer));
-    timersRef.current = [];
-
     if (isVisible) {
-      // Start with curtain off-screen and render
-      setShouldRender(true);
-      setShowText(false);
-      setAnimationPhase('hidden');
+      // Mount the component
+      setIsMounted(true);
       
-      // Slide down to visible after a small delay
-      const slideDownTimer = setTimeout(() => {
-        setAnimationPhase('visible');
-      }, 50);
-      timersRef.current.push(slideDownTimer);
-
-      // Show text after curtain is fully down (2000ms transition + 50ms delay)
+      // Show text after curtain slides down
       const textTimer = setTimeout(() => {
         setShowText(true);
-      }, 2050);
-      timersRef.current.push(textTimer);
+      }, 1000); // 1 second for slide down animation
 
-      // Hide text and start sliding up
-      const slideUpTimer = setTimeout(() => {
+      // Start hiding
+      const hideTimer = setTimeout(() => {
         setShowText(false);
-        setAnimationPhase('hidden');
-      }, 3500); // Give time to read the text
-      timersRef.current.push(slideUpTimer);
+      }, 2500); // Show text for 1.5 seconds
 
-      // Complete animation and cleanup - 3500ms + 2000ms slide up
+      // Trigger slide up and complete
       const completeTimer = setTimeout(() => {
-        setShouldRender(false);
-        onComplete();
-      }, 5500);
-      timersRef.current.push(completeTimer);
+        setIsMounted(false);
+        // Wait for slide up animation to complete
+        setTimeout(onComplete, 1000);
+      }, 3000); // Start sliding up after 3 seconds
 
       return () => {
-        timersRef.current.forEach(timer => clearTimeout(timer));
-        timersRef.current = [];
+        clearTimeout(textTimer);
+        clearTimeout(hideTimer);
+        clearTimeout(completeTimer);
       };
-    } else {
-      // Reset state when not visible
-      setShouldRender(false);
-      setShowText(false);
-      setAnimationPhase('hidden');
     }
   }, [isVisible, onComplete]);
 
-  // Don't render when animation is not active
-  if (!shouldRender) {
+  // Don't render if not mounted
+  if (!isMounted && !isVisible) {
     return null;
   }
 
   return (
     <div 
-      className="fixed inset-0 bg-black z-[200] flex items-center justify-center"
-      style={{
-        transform: animationPhase === 'visible' ? 'translateY(0%)' : 'translateY(-100%)',
-        transition: 'transform 2000ms cubic-bezier(0.4, 0.0, 0.2, 1)'
-      }}
+      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-1000 ${
+        isMounted ? 'translate-y-0' : '-translate-y-full'
+      }`}
     >
       <h1 
-        className="text-white text-4xl md:text-6xl font-light tracking-wide"
-        style={{
-          opacity: showText ? 1 : 0,
-          transition: 'opacity 500ms ease-in-out'
-        }}
+        className={`text-white text-4xl md:text-6xl font-light tracking-wide transition-opacity duration-500 ${
+          showText ? 'opacity-100' : 'opacity-0'
+        }`}
       >
         {sectionName}
       </h1>
