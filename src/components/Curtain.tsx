@@ -11,14 +11,8 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   const [showText, setShowText] = useState(false);
   const [animationPhase, setAnimationPhase] = useState<'hidden' | 'visible'>('hidden');
   const [shouldRender, setShouldRender] = useState(false);
-  const timersRef = useRef<NodeJS.Timeout[]>([]);
 
-  
   useEffect(() => {
-    // Clear any existing timers
-    timersRef.current.forEach(timer => clearTimeout(timer));
-    timersRef.current = [];
-
     if (isVisible) {
       // Start with curtain off-screen and render
       setShouldRender(true);
@@ -29,37 +23,30 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
       const slideDownTimer = setTimeout(() => {
         setAnimationPhase('visible');
       }, 50);
-      timersRef.current.push(slideDownTimer);
 
-      // Show text after curtain is fully down (2000ms transition + 50ms delay)
+      // Show text after curtain is fully down
       const textTimer = setTimeout(() => {
         setShowText(true);
-      }, 2050);
-      timersRef.current.push(textTimer);
+      }, 1100);
 
       // Hide text and start sliding up
       const slideUpTimer = setTimeout(() => {
         setShowText(false);
         setAnimationPhase('hidden');
-      }, 3500); // Give time to read the text
-      timersRef.current.push(slideUpTimer);
+      }, 3000);
 
-      // Complete animation and cleanup - 3500ms + 2000ms slide up
+      // Complete animation and cleanup - extended to 5100ms for 2-second slide up
       const completeTimer = setTimeout(() => {
         setShouldRender(false);
         onComplete();
-      }, 5500);
-      timersRef.current.push(completeTimer);
+      }, 5100);
 
       return () => {
-        timersRef.current.forEach(timer => clearTimeout(timer));
-        timersRef.current = [];
+        clearTimeout(slideDownTimer);
+        clearTimeout(textTimer);
+        clearTimeout(slideUpTimer);
+        clearTimeout(completeTimer);
       };
-    } else {
-      // Reset state when not visible
-      setShouldRender(false);
-      setShowText(false);
-      setAnimationPhase('hidden');
     }
   }, [isVisible, onComplete]);
 
