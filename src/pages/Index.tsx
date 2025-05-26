@@ -48,7 +48,7 @@ const Index = () => {
         
         <main className="pt-20 min-h-screen flex flex-col relative">
           {/* Hero Image positioned at bottom with more spacing from top */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-12">
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-20">
             <img 
               src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
               alt="Philip Samuelraj"
@@ -58,11 +58,11 @@ const Index = () => {
 
           {/* Right Side Text */}
           <div className="absolute top-1/2 right-8 transform -translate-y-1/2 text-right">
-            <div className="text-2xl md:text-3xl lg:text-4xl font-light text-white leading-relaxed">
+            <div className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-500 leading-relaxed">
               <div>Innovator</div>
-              <div className="text-white/70">|</div>
+              <div className="text-gray-400">|</div>
               <div>Investor</div>
-              <div className="text-white/70">|</div>
+              <div className="text-gray-400">|</div>
               <div>Leader</div>
             </div>
           </div>
