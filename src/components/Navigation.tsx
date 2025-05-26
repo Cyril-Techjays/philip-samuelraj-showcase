@@ -33,21 +33,6 @@ const Navigation = () => {
     }, 2000);
   };
 
-  const handleTitleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    
-    // Don't show curtain if already on home page
-    if (location.pathname === "/") return;
-    
-    setCurrentSection("Home");
-    setCurtainVisible(true);
-    
-    // Navigate to home page at 2 seconds (middle of 4-second animation)
-    setTimeout(() => {
-      navigate("/");
-    }, 2000);
-  };
-
   const handleCurtainComplete = () => {
     setCurtainVisible(false);
   };
@@ -57,13 +42,9 @@ const Navigation = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <a 
-              href="/"
-              onClick={handleTitleClick}
-              className="flex items-center space-x-2 text-gray-800 hover:text-gray-600 transition-colors cursor-pointer"
-            >
+            <Link to="/" className="flex items-center space-x-2 text-gray-800 hover:text-gray-600 transition-colors">
               <span className="text-lg font-semibold">Philip Samuelraj</span>
-            </a>
+            </Link>
             
             <div className="flex items-center space-x-8">
               {navItems.map((item) => (
