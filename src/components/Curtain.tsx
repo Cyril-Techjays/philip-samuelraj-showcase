@@ -13,21 +13,25 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
 
   useEffect(() => {
     if (isVisible) {
-      // Show text after curtain comes down
+      // Reset states
+      setShowText(false);
+      setStartExit(false);
+      
+      // Show text after curtain comes down (0.5s)
       const textTimer = setTimeout(() => {
         setShowText(true);
       }, 500);
 
-      // Start pulling curtain back up at 2 seconds
+      // Start pulling curtain back up at 1.5 seconds (after navigation happens at 1s)
       const exitTimer = setTimeout(() => {
         setStartExit(true);
         setShowText(false);
-      }, 2000);
+      }, 1500);
 
-      // Complete navigation after curtain is fully up (3 seconds total)
+      // Complete animation after curtain is fully up (2.5 seconds total)
       const completeTimer = setTimeout(() => {
         onComplete();
-      }, 3000);
+      }, 2500);
 
       return () => {
         clearTimeout(textTimer);
@@ -43,7 +47,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
 
   return (
     <div 
-      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-700 ease-in-out ${
+      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-500 ease-in-out ${
         isVisible && !startExit ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
