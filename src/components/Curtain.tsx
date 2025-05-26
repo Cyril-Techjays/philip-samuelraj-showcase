@@ -15,13 +15,13 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
       // Show text after curtain comes down
       const textTimer = setTimeout(() => {
         setShowText(true);
-      }, 300);
+      }, 500);
 
-      // Start pulling back up after showing text
+      // Start pulling back up after 3 seconds total
       const completeTimer = setTimeout(() => {
         setShowText(false);
         onComplete();
-      }, 1200);
+      }, 3000);
 
       return () => {
         clearTimeout(textTimer);
@@ -32,7 +32,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
 
   return (
     <div 
-      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-500 ease-in-out ${
+      className={`fixed inset-0 bg-black z-[200] flex items-center justify-center transition-transform duration-700 ease-in-out ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
