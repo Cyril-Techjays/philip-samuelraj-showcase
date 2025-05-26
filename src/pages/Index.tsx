@@ -48,7 +48,7 @@ const Index = () => {
         
         <main className="pt-20 min-h-screen flex flex-col relative">
           {/* Hero Image positioned at bottom with more spacing from top */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4">
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-12">
             <img 
               src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
               alt="Philip Samuelraj"
@@ -70,7 +70,7 @@ const Index = () => {
           {/* Bottom Text */}
           <div className="absolute bottom-8 left-0 right-0">
             <div className="overflow-hidden whitespace-nowrap">
-              <div className="animate-marquee inline-block text-8xl md:text-9xl lg:text-[12rem] font-bold text-white tracking-tight">
+              <div className="animate-marquee inline-block text-8xl md:text-9xl lg:text-[12rem] font-bold text-gray-500 tracking-tight">
                 Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — 
               </div>
             </div>
