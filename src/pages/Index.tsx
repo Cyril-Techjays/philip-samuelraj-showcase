@@ -5,6 +5,7 @@ import Navigation from "@/components/Navigation";
 const Index = () => {
   const [showLoader, setShowLoader] = useState(true);
   const [currentGreeting, setCurrentGreeting] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   const greetings = [
     "Hello",      // English
@@ -23,9 +24,18 @@ const Index = () => {
       setShowLoader(false);
     }, 3000);
 
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20; // -10 to 10
+      const y = (e.clientY / window.innerHeight - 0.5) * 20; // -10 to 10
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
     return () => {
       clearInterval(greetingInterval);
       clearTimeout(loaderTimeout);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
@@ -47,8 +57,13 @@ const Index = () => {
         <Navigation />
         
         <main className="pt-20 min-h-screen flex flex-col relative">
-          {/* Hero Image positioned at bottom with more spacing from top */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-32">
+          {/* Hero Image positioned at bottom with parallax effect */}
+          <div 
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-40 transition-transform duration-100 ease-out"
+            style={{
+              transform: `translate(-50%, 10rem) translate(${mousePosition.x}px, ${mousePosition.y}px)`
+            }}
+          >
             <img 
               src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
               alt="Philip Samuelraj"
