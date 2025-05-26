@@ -9,41 +9,37 @@ interface CurtainProps {
 
 const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
   const [showText, setShowText] = useState(false);
-  const [animationPhase, setAnimationPhase] = useState<'initial' | 'down' | 'up'>('initial');
+  const [animationPhase, setAnimationPhase] = useState<'hidden' | 'visible'>('hidden');
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
     if (isVisible) {
-      // Reset states and force render
+      // Start with curtain off-screen and render
       setShouldRender(true);
       setShowText(false);
+      setAnimationPhase('hidden');
       
-      // Add small delay before setting to initial to prevent jumps
-      setTimeout(() => {
-        setAnimationPhase('initial');
-      }, 10);
-      
-      // Start sliding down after ensuring component is rendered
+      // Slide down to visible after a small delay
       const slideDownTimer = setTimeout(() => {
-        setAnimationPhase('down');
-      }, 100);
+        setAnimationPhase('visible');
+      }, 50);
 
-      // Show text after curtain is fully down (1.2s total - 100ms delay + 1s animation + 100ms buffer)
+      // Show text after curtain is fully down
       const textTimer = setTimeout(() => {
         setShowText(true);
-      }, 1200);
+      }, 1100);
 
-      // Start sliding up at 3 seconds
+      // Hide text and start sliding up
       const slideUpTimer = setTimeout(() => {
         setShowText(false);
-        setAnimationPhase('up');
+        setAnimationPhase('hidden');
       }, 3000);
 
-      // Complete animation after curtain is fully up - extended to 4300ms to allow full transition
+      // Complete animation and cleanup
       const completeTimer = setTimeout(() => {
         setShouldRender(false);
         onComplete();
-      }, 4300);
+      }, 4100);
 
       return () => {
         clearTimeout(slideDownTimer);
@@ -59,28 +55,11 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
     return null;
   }
 
-  // Three-phase animation logic:
-  // Phase 1: Start off-screen at top (translateY(-100%))
-  // Phase 2: Slide down and stay visible (translateY(0%))
-  // Phase 3: Slide back up off-screen (translateY(-100%))
-  const getTransform = () => {
-    switch (animationPhase) {
-      case 'initial':
-        return 'translateY(-100%)'; // Start off-screen
-      case 'down':
-        return 'translateY(0%)'; // Slide down to visible
-      case 'up':
-        return 'translateY(-100%)'; // Slide up off-screen
-      default:
-        return 'translateY(-100%)';
-    }
-  };
-
   return (
     <div 
       className="fixed inset-0 bg-black z-[200] flex items-center justify-center"
       style={{
-        transform: getTransform(),
+        transform: animationPhase === 'visible' ? 'translateY(0%)' : 'translateY(-100%)',
         transition: 'transform 1000ms cubic-bezier(0.4, 0.0, 0.2, 1)'
       }}
     >
