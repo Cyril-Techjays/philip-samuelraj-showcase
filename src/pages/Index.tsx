@@ -46,31 +46,29 @@ const Index = () => {
       <div className="min-h-screen" style={{ backgroundColor: 'rgba(152,157,159,255)' }}>
         <Navigation />
         
-        <main className="pt-20 min-h-screen flex flex-col">
-          <div className="flex-1 flex items-center justify-center px-6">
-            {/* Hero Image */}
-            <div className="relative">
-              <img 
-                src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
-                alt="Philip Samuelraj"
-                className="w-96 h-auto rounded-lg shadow-2xl"
-              />
-            </div>
+        <main className="pt-20 min-h-screen flex flex-col relative">
+          {/* Hero Image positioned at bottom */}
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
+            <img 
+              src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
+              alt="Philip Samuelraj"
+              className="w-96 h-auto"
+            />
+          </div>
 
-            {/* Right Side Text */}
-            <div className="absolute top-1/2 right-8 transform -translate-y-1/2 text-right">
-              <div className="text-2xl md:text-3xl lg:text-4xl font-light text-white leading-relaxed">
-                <div>Innovator</div>
-                <div className="text-white/70">|</div>
-                <div>Investor</div>
-                <div className="text-white/70">|</div>
-                <div>Leader</div>
-              </div>
+          {/* Right Side Text */}
+          <div className="absolute top-1/2 right-8 transform -translate-y-1/2 text-right">
+            <div className="text-2xl md:text-3xl lg:text-4xl font-light text-white leading-relaxed">
+              <div>Innovator</div>
+              <div className="text-white/70">|</div>
+              <div>Investor</div>
+              <div className="text-white/70">|</div>
+              <div>Leader</div>
             </div>
           </div>
 
           {/* Bottom Text */}
-          <div className="pb-20">
+          <div className="absolute bottom-8 left-0 right-0">
             <div className="overflow-hidden whitespace-nowrap">
               <div className="animate-marquee inline-block text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight">
                 Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — 
