@@ -1,14 +1,61 @@
+
 import Navigation from "@/components/Navigation";
 import WorldAnimation from "@/components/WorldAnimation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 const TechjaysOverview = () => {
-  return <div className="min-h-screen" style={{
-    background: `
-          radial-gradient(ellipse at 30% 20%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
-          radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-          radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 60%),
-          linear-gradient(to bottom right, #f9fafb, #f3f4f6)
-        `
-  }}>
+  const companyDetails = [
+    {
+      title: "Founded",
+      content: "2020, Menlo Park, California"
+    },
+    {
+      title: "Mission",
+      content: "Build the world's best AI products, apps, and solutions"
+    },
+    {
+      title: "Global Reach",
+      content: "Delivered 150+ projects across 7 countries"
+    },
+    {
+      title: "Client Trust",
+      content: "65+ satisfied clients served across 15+ industries"
+    },
+    {
+      title: "Team Strength",
+      content: "170+ skilled professionals"
+    },
+    {
+      title: "Strategic Partnerships",
+      content: "Google Cloud, AWS, IBM"
+    },
+    {
+      title: "Certifications",
+      content: "ISO 27001, ISO 9001"
+    },
+    {
+      title: "Industry Coverage",
+      content: "Deep domain knowledge across healthcare, finance, retail, logistics, and more"
+    },
+    {
+      title: "Value Proposition",
+      content: "Combining cutting-edge technology with industry insight to deliver real business impact"
+    },
+    {
+      title: "Client Approach",
+      content: "Agile, transparent, and centered on long-term success"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen" style={{
+      background: `
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent),
+        radial-gradient(ellipse 60% 50% at 102% 78%, rgba(236, 72, 153, 0.15), transparent),
+        radial-gradient(ellipse 60% 50% at -2% 78%, rgba(96, 165, 250, 0.15), transparent),
+        linear-gradient(180deg, #0f0f23 0%, #1a1a2e 100%)
+      `
+    }}>
       <Navigation />
       
       <main className="pt-20">
@@ -23,56 +70,29 @@ const TechjaysOverview = () => {
           </div>
         </div>
         
-        {/* World Animation Section positioned directly under the intro text */}
         <WorldAnimation />
 
-        {/* Grid Section moved below the GSAP map */}
         <div className="max-w-7xl mx-auto px-6 py-20">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Innovation Focus</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Driving cutting-edge technology solutions and fostering a culture of innovation across global markets.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Strategic Vision</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Developing long-term strategies for sustainable growth and market leadership worldwide.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Team Leadership</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Building and leading high-performing teams across global markets and diverse cultures.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Global Presence</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Establishing strong partnerships and operations across USA, Canada, UK, UAE, India, Bangladesh, and Australia.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">AI Integration</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Leveraging artificial intelligence to revolutionize business processes and create intelligent solutions.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Future Technology</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Pioneering next-generation technologies and preparing for the digital transformation of tomorrow.
-              </p>
-            </div>
+            {companyDetails.map((detail, index) => (
+              <Card key={index} className="bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl font-semibold text-gray-900">
+                    {detail.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <p className="text-gray-600 leading-relaxed">
+                    {detail.content}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </main>
-    </div>;
+    </div>
+  );
 };
+
 export default TechjaysOverview;
