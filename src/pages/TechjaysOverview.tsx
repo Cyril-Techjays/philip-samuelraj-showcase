@@ -1,24 +1,18 @@
-
 import Navigation from "@/components/Navigation";
 import WorldAnimation from "@/components/WorldAnimation";
-
 const TechjaysOverview = () => {
-  return (
-    <div 
-      className="min-h-screen"
-      style={{
-        background: `
+  return <div className="min-h-screen" style={{
+    background: `
           radial-gradient(ellipse at 30% 20%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
           radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
           radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 60%),
           linear-gradient(to bottom right, #f9fafb, #f3f4f6)
         `
-      }}
-    >
+  }}>
       <Navigation />
       
       <main className="pt-20">
-        <div className="max-w-7xl mx-auto px-6 py-20">
+        <div className="max-w-7xl px-0 mx-[51px] py-0">
           <div className="text-center mb-8">
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
               Techjays Overview
@@ -79,8 +73,6 @@ const TechjaysOverview = () => {
           </div>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default TechjaysOverview;
