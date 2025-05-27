@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navigation from "@/components/Navigation";
 import WorldAnimation from "@/components/WorldAnimation";
+import ServicesCardDeck from "@/components/ServicesCardDeck";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, Target, Globe, Users, UsersRound, Cloud, Award, Briefcase, Lightbulb, HandHeart } from "lucide-react";
 
@@ -187,6 +188,8 @@ const TechjaysOverview = () => {
             </div>
           </div>
         </div>
+
+        <ServicesCardDeck />
       </main>
     </div>
   );
