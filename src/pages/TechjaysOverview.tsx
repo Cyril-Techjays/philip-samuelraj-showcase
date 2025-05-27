@@ -116,7 +116,7 @@ const TechjaysOverview = () => {
       <Navigation />
       
       <main className="pt-16 h-full flex flex-col">
-        <div className="flex-shrink-0" style={{ height: '50vh' }}>
+        <div className="flex-shrink-0" style={{ height: '70vh' }}>
           <WorldAnimation />
         </div>
 
