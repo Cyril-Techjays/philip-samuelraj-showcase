@@ -248,7 +248,8 @@ const ServicesCardDeck = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>
+        {`
         @keyframes float {
           from {
             transform: translateY(100vh) translateX(0);
@@ -265,7 +266,8 @@ const ServicesCardDeck = () => {
             opacity: 0;
           }
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };
