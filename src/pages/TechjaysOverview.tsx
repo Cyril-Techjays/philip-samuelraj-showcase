@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -115,12 +116,12 @@ const TechjaysOverview = () => {
       <Navigation />
       
       <main className="pt-16 h-full flex flex-col">
-        <div className="flex-shrink-0" style={{ height: '45vh' }}>
+        <div className="flex-shrink-0" style={{ height: '50vh' }}>
           <WorldAnimation />
         </div>
 
-        <div className="flex-1 max-w-7xl mx-auto px-6 py-4 overflow-hidden">
-          <div ref={cardsRef} className="flex gap-4 overflow-x-auto pb-4 h-full scrollbar-hide" style={{
+        <div className="flex-1 max-w-7xl mx-auto px-6 py-6 overflow-hidden">
+          <div ref={cardsRef} className="flex gap-6 overflow-x-auto pb-6 h-full scrollbar-hide" style={{
             scrollSnapType: 'x mandatory'
           }}>
             {companyDetails.map((detail, index) => {
@@ -128,15 +129,15 @@ const TechjaysOverview = () => {
               return (
                 <Card 
                   key={index} 
-                  className="company-card flex-shrink-0 w-64 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0 h-fit" 
+                  className="company-card flex-shrink-0 w-72 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0 h-fit" 
                   style={{
                     scrollSnapAlign: 'start'
                   }}
                 >
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="p-1.5 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white">
-                        <IconComponent size={16} />
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+                        <IconComponent size={18} />
                       </div>
                       <CardTitle className="text-lg font-semibold text-gray-900">
                         {detail.title}
@@ -144,7 +145,7 @@ const TechjaysOverview = () => {
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <p className="text-gray-600 leading-relaxed mb-2 text-sm">
+                    <p className="text-gray-600 leading-relaxed mb-3 text-sm">
                       {detail.content}
                     </p>
                     {detail.isPartnership && <PartnershipIcons />}

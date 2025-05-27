@@ -337,7 +337,7 @@ const WorldAnimation = () => {
         </defs>
       </svg>
       
-      <div className="center-logo absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80px] h-[80px] flex items-center justify-center z-20 opacity-0 scale-0">
+      <div className="center-logo absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[100px] h-[100px] flex items-center justify-center z-20 opacity-0 scale-0">
         <img 
           src="/lovable-uploads/6388fe6a-70f7-4859-a81b-d08a6ad8f56e.png" 
           alt="Techjays Logo" 
@@ -347,7 +347,7 @@ const WorldAnimation = () => {
       
       <h1 
         id="world-title"
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl md:text-4xl font-black text-center bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent opacity-0 leading-tight z-30"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl md:text-5xl font-black text-center bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent opacity-0 leading-tight z-30"
       >
         Around the<br />World with AI
       </h1>
