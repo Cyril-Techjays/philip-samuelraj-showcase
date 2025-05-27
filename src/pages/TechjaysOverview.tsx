@@ -7,12 +7,7 @@ const TechjaysOverview = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Navigation />
       
-      {/* World Animation Section */}
-      <div className="pt-20">
-        <WorldAnimation />
-      </div>
-      
-      <main className="pt-8">
+      <main className="pt-20">
         <div className="max-w-7xl mx-auto px-6 py-20">
           <div className="text-center mb-16">
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
@@ -68,6 +63,11 @@ const TechjaysOverview = () => {
           </div>
         </div>
       </main>
+      
+      {/* World Animation Section */}
+      <div className="py-8">
+        <WorldAnimation />
+      </div>
     </div>
   );
 };
