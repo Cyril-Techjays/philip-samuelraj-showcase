@@ -55,6 +55,9 @@ const TechjaysOverview = () => {
     icon: Users
   }];
 
+  // Duplicate cards for seamless marquee effect
+  const duplicatedCards = [...companyDetails, ...companyDetails];
+
   useEffect(() => {
     if (!cardsRef.current) return;
     const cards = cardsRef.current.querySelectorAll('.company-card');
@@ -120,39 +123,39 @@ const TechjaysOverview = () => {
           <WorldAnimation />
         </div>
 
-        <div className="flex-1 max-w-7xl mx-auto px-6 py-6 overflow-hidden">
-          <div ref={cardsRef} className="flex gap-6 overflow-x-auto pb-6 h-full scrollbar-hide" style={{
-            scrollSnapType: 'x mandatory'
-          }}>
-            {companyDetails.map((detail, index) => {
-              const IconComponent = detail.icon;
-              return (
-                <Card 
-                  key={index} 
-                  className="company-card flex-shrink-0 w-72 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0 h-fit" 
-                  style={{
-                    scrollSnapAlign: 'start'
-                  }}
-                >
-                  <CardHeader className="pb-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white">
-                        <IconComponent size={18} />
+        <div className="flex-1 max-w-none mx-auto px-6 py-6 overflow-hidden">
+          <div className="marquee-container overflow-hidden relative">
+            <div 
+              ref={cardsRef} 
+              className="marquee-content flex gap-6 animate-marquee"
+            >
+              {duplicatedCards.map((detail, index) => {
+                const IconComponent = detail.icon;
+                return (
+                  <Card 
+                    key={`${detail.title}-${index}`} 
+                    className="company-card flex-shrink-0 w-80 h-64 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0" 
+                  >
+                    <CardHeader className="pb-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+                          <IconComponent size={18} />
+                        </div>
+                        <CardTitle className="text-lg font-semibold text-gray-900">
+                          {detail.title}
+                        </CardTitle>
                       </div>
-                      <CardTitle className="text-lg font-semibold text-gray-900">
-                        {detail.title}
-                      </CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <p className="text-gray-600 leading-relaxed mb-3 text-sm">
-                      {detail.content}
-                    </p>
-                    {detail.isPartnership && <PartnershipIcons />}
-                  </CardContent>
-                </Card>
-              );
-            })}
+                    </CardHeader>
+                    <CardContent className="pt-0 flex-1 flex flex-col">
+                      <p className="text-gray-600 leading-relaxed mb-3 text-sm flex-1">
+                        {detail.content}
+                      </p>
+                      {detail.isPartnership && <PartnershipIcons />}
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
           </div>
         </div>
       </main>
