@@ -5,9 +5,12 @@ import Navigation from "@/components/Navigation";
 import WorldAnimation from "@/components/WorldAnimation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, Target, Globe, Users, UsersRound, Cloud, Award, Briefcase, Lightbulb, HandHeart } from "lucide-react";
+
 gsap.registerPlugin(ScrollTrigger);
+
 const TechjaysOverview = () => {
   const cardsRef = useRef<HTMLDivElement>(null);
+
   const companyDetails = [{
     title: "Founded",
     content: "2020, Menlo Park, California",
@@ -50,6 +53,7 @@ const TechjaysOverview = () => {
     content: "Agile, transparent, and centered on long-term success",
     icon: Users
   }];
+
   useEffect(() => {
     if (!cardsRef.current) return;
     const cards = cardsRef.current.querySelectorAll('.company-card');
@@ -73,6 +77,7 @@ const TechjaysOverview = () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
+
   const PartnershipIcons = () => <div className="flex gap-3 mt-2">
       {/* Google Cloud */}
       <div className="w-8 h-8 bg-white rounded p-1.5 shadow-sm">
@@ -98,38 +103,40 @@ const TechjaysOverview = () => {
         </svg>
       </div>
     </div>;
-  return <div className="min-h-screen" style={{
-    background: `
-          radial-gradient(ellipse at 30% 20%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
-          radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-          radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 60%)
-        `
-  }}>
+
+  return (
+    <div className="min-h-screen" style={{
+      background: `
+        radial-gradient(ellipse at 30% 20%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 60%)
+      `
+    }}>
       <Navigation />
       
       <main className="pt-20">
-        <div className="max-w-7xl px-0 mx-[51px] py-0">
-          <div className="text-center mb-8">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Techjays Overview
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Leading technological innovation and digital transformation across the globe
-            </p>
-          </div>
-        </div>
-        
         <WorldAnimation />
+
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Techjays Overview
+          </h1>
+        </div>
 
         <div className="max-w-7xl mx-auto px-6 py-px">
           <div ref={cardsRef} className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide" style={{
-          scrollSnapType: 'x mandatory'
-        }}>
+            scrollSnapType: 'x mandatory'
+          }}>
             {companyDetails.map((detail, index) => {
-            const IconComponent = detail.icon;
-            return <Card key={index} className="company-card flex-shrink-0 w-80 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0" style={{
-              scrollSnapAlign: 'start'
-            }}>
+              const IconComponent = detail.icon;
+              return (
+                <Card 
+                  key={index} 
+                  className="company-card flex-shrink-0 w-80 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0" 
+                  style={{
+                    scrollSnapAlign: 'start'
+                  }}
+                >
                   <CardHeader className="pb-4">
                     <div className="flex items-center gap-3 mb-2">
                       <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white">
@@ -146,11 +153,14 @@ const TechjaysOverview = () => {
                     </p>
                     {detail.isPartnership && <PartnershipIcons />}
                   </CardContent>
-                </Card>;
-          })}
+                </Card>
+              );
+            })}
           </div>
         </div>
       </main>
-    </div>;
+    </div>
+  );
 };
+
 export default TechjaysOverview;
