@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
@@ -339,9 +338,11 @@ const WorldAnimation = () => {
       </svg>
       
       <div className="center-logo absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120px] h-[120px] flex items-center justify-center z-20 opacity-0 scale-0">
-        <div className="w-full h-full bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold">
-          TJ
-        </div>
+        <img 
+          src="/lovable-uploads/6388fe6a-70f7-4859-a81b-d08a6ad8f56e.png" 
+          alt="Techjays Logo" 
+          className="w-full h-full object-contain rounded-2xl"
+        />
       </div>
       
       <h1 
