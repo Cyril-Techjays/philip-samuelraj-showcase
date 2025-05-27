@@ -131,7 +131,7 @@ const TechjaysOverview = () => {
         }
         
         .animate-marquee {
-          animation: marquee 80s linear infinite;
+          animation: marquee 40s linear infinite;
         }
         
         .marquee-container:hover .animate-marquee {
