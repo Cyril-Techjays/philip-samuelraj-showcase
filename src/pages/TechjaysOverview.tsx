@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,48 +11,50 @@ gsap.registerPlugin(ScrollTrigger);
 const TechjaysOverview = () => {
   const cardsRef = useRef<HTMLDivElement>(null);
 
-  const companyDetails = [{
-    title: "Founded",
-    content: "2020, Menlo Park, California",
-    icon: Building2
-  }, {
-    title: "Mission",
-    content: "Build the world's best AI products, apps, and solutions",
-    icon: Target
-  }, {
-    title: "Global Reach",
-    content: "Delivered 150+ projects across 7 countries",
-    icon: Globe
-  }, {
-    title: "Client Trust",
-    content: "65+ satisfied clients served across 15+ industries",
-    icon: HandHeart
-  }, {
-    title: "Team Strength",
-    content: "170+ skilled professionals",
-    icon: UsersRound
-  }, {
-    title: "Strategic Partnerships",
-    content: "Google Cloud, AWS, IBM",
-    icon: Cloud,
-    isPartnership: true
-  }, {
-    title: "Certifications",
-    content: "ISO 27001, ISO 9001",
-    icon: Award
-  }, {
-    title: "Industry Coverage",
-    content: "Deep domain knowledge across healthcare, finance, retail, logistics, and more",
-    icon: Briefcase
-  }, {
-    title: "Value Proposition",
-    content: "Combining cutting-edge technology with industry insight to deliver real business impact",
-    icon: Lightbulb
-  }, {
-    title: "Client Approach",
-    content: "Agile, transparent, and centered on long-term success",
-    icon: Users
-  }];
+  const companyDetails = [
+    {
+      title: "Founded",
+      content: "2020, Menlo Park, California",
+      icon: Building2
+    }, {
+      title: "Mission",
+      content: "Build the world's best AI products, apps, and solutions",
+      icon: Target
+    }, {
+      title: "Global Reach",
+      content: "Delivered 150+ projects across 7 countries",
+      icon: Globe
+    }, {
+      title: "Client Trust",
+      content: "65+ satisfied clients served across 15+ industries",
+      icon: HandHeart
+    }, {
+      title: "Team Strength",
+      content: "170+ skilled professionals",
+      icon: UsersRound
+    }, {
+      title: "Strategic Partnerships",
+      content: "Google Cloud, AWS, IBM",
+      icon: Cloud,
+      isPartnership: true
+    }, {
+      title: "Certifications",
+      content: "ISO 27001, ISO 9001",
+      icon: Award
+    }, {
+      title: "Industry Coverage",
+      content: "Deep domain knowledge across healthcare, finance, retail, logistics, and more",
+      icon: Briefcase
+    }, {
+      title: "Value Proposition",
+      content: "Combining cutting-edge technology with industry insight to deliver real business impact",
+      icon: Lightbulb
+    }, {
+      title: "Client Approach",
+      content: "Agile, transparent, and centered on long-term success",
+      icon: Users
+    }
+  ];
 
   // Duplicate cards for seamless marquee effect
   const duplicatedCards = [...companyDetails, ...companyDetails];
@@ -82,7 +83,8 @@ const TechjaysOverview = () => {
     };
   }, []);
 
-  const PartnershipIcons = () => <div className="flex gap-3 mt-2">
+  const PartnershipIcons = () => (
+    <div className="flex gap-3 mt-2">
       {/* Google Cloud */}
       <div className="w-8 h-8 bg-white rounded p-1.5 shadow-sm">
         <svg viewBox="0 0 24 24" className="w-full h-full">
@@ -106,7 +108,8 @@ const TechjaysOverview = () => {
           <path fill="#1261FE" d="M0 9h4v1H0V9zm0 2h4v1H0v-1zm0 2h4v1H0v-1zm5-4h6v1H5V9zm0 2h6v1H5v-1zm0 2h6v1H5v-1zm7-4h6v1h-6V9zm0 2h6v1h-6v-1zm0 2h6v1h-6v-1zm7-4h5v1h-5V9zm0 2h5v1h-5v-1zm0 2h5v1h-5v-1z" />
         </svg>
       </div>
-    </div>;
+    </div>
+  );
 
   return (
     <div className="h-screen overflow-hidden" style={{
@@ -116,6 +119,25 @@ const TechjaysOverview = () => {
         radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 60%)
       `
     }}>
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        
+        .animate-marquee {
+          animation: marquee 80s linear infinite;
+        }
+        
+        .marquee-container:hover .animate-marquee {
+          animation-play-state: paused;
+        }
+      `}</style>
+      
       <Navigation />
       
       <main className="pt-16 h-full flex flex-col">
