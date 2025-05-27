@@ -21,9 +21,10 @@ const WorldAnimation = () => {
     
     const container = containerRef.current;
     const rect = container.getBoundingClientRect();
+    const ellipseA = rect.width * 0.36;
+    const ellipseB = rect.height * 0.28;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const radius = Math.min(rect.width, rect.height) * 0.35; // Circle radius
     const total = countries.length;
     
     countries.forEach((country, index) => {
@@ -31,10 +32,9 @@ const WorldAnimation = () => {
       node.className = 'absolute w-[100px] h-[100px] transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10';
       node.id = country.id;
       
-      // Calculate position in perfect circle
       const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
-      const x = centerX + radius * Math.cos(angle);
-      const y = centerY + radius * Math.sin(angle);
+      const x = centerX + ellipseA * Math.cos(angle);
+      const y = centerY + ellipseB * Math.sin(angle);
       
       node.style.left = `${x}px`;
       node.style.top = `${y}px`;
@@ -93,55 +93,48 @@ const WorldAnimation = () => {
     const svg = containerRef.current.querySelector('svg');
     if (!svg) return;
     
-    const rect = containerRef.current.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    // Create connections from center logo to each country
-    nodesRef.current.forEach((node, index) => {
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      
-      // Create a slight curve for visual appeal
-      const dx = node.x - centerX;
-      const dy = node.y - centerY;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      
-      // Control point for curve (perpendicular offset)
-      const perpX = -dy / distance * 30; // Perpendicular vector
-      const perpY = dx / distance * 30;
-      const cpX = centerX + dx * 0.5 + perpX;
-      const cpY = centerY + dy * 0.5 + perpY;
-      
-      const curve = `M ${centerX} ${centerY} Q ${cpX} ${cpY} ${node.x} ${node.y}`;
-      
-      path.setAttribute('d', curve);
-      path.setAttribute('stroke', node.country.color);
-      path.setAttribute('stroke-width', '2');
-      path.setAttribute('fill', 'none');
-      path.setAttribute('opacity', '0');
-      path.setAttribute('filter', 'url(#glow)');
-      path.setAttribute('stroke-dasharray', '5,5');
-      
-      svg.appendChild(path);
-      connectionsRef.current.push(path);
-      
-      // Animate connection appearance
-      gsap.to(path, {
-        opacity: 0.4,
-        duration: 1.5,
-        delay: 1.8 + index * 0.1,
-        ease: "power2.inOut"
-      });
-      
-      // Animate dash movement
-      gsap.to(path, {
-        strokeDashoffset: -10,
-        duration: 3,
-        repeat: -1,
-        ease: "none",
-        delay: 2.5 + index * 0.1
-      });
-    });
+    for (let i = 0; i < nodesRef.current.length; i++) {
+      for (let j = i + 1; j < nodesRef.current.length; j++) {
+        const nodes = nodesRef.current;
+        const dx = nodes[j].x - nodes[i].x;
+        const dy = nodes[j].y - nodes[i].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < (containerRef.current?.getBoundingClientRect().width || 0) * 0.4) {
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          const start = nodes[i];
+          const end = nodes[j];
+          
+          const cp1x = start.x + (end.x - start.x) * 0.25;
+          const cp1y = start.y - 50;
+          const cp2x = start.x + (end.x - start.x) * 0.75;
+          const cp2y = end.y - 50;
+          
+          const curve = `M ${start.x} ${start.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${end.x} ${end.y}`;
+          
+          path.setAttribute('d', curve);
+          path.setAttribute('stroke', 'url(#gradient1)');
+          path.setAttribute('stroke-width', '1.5');
+          path.setAttribute('fill', 'none');
+          path.setAttribute('opacity', '0');
+          path.setAttribute('filter', 'url(#glow)');
+          
+          svg.appendChild(path);
+          connectionsRef.current.push(path);
+          
+          const length = path.getTotalLength();
+          gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+          
+          gsap.to(path, {
+            opacity: 0.3,
+            strokeDashoffset: 0,
+            duration: 2,
+            delay: 1.5 + (i * nodesRef.current.length + j) * 0.05,
+            ease: "power2.inOut"
+          });
+        }
+      }
+    }
   };
 
   const createPulseWave = (x: number, y: number, color: string) => {
@@ -291,7 +284,7 @@ const WorldAnimation = () => {
       const connectionInterval = setInterval(() => {
         connectionsRef.current.forEach((path, index) => {
           gsap.to(path, {
-            opacity: 0.2,
+            opacity: 0.1,
             duration: 1,
             delay: index * 0.1,
             yoyo: true,
