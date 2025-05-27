@@ -48,14 +48,7 @@ const TechjaysOverview = () => {
   ];
 
   return (
-    <div className="min-h-screen" style={{
-      background: `
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent),
-        radial-gradient(ellipse 60% 50% at 102% 78%, rgba(236, 72, 153, 0.15), transparent),
-        radial-gradient(ellipse 60% 50% at -2% 78%, rgba(96, 165, 250, 0.15), transparent),
-        linear-gradient(180deg, #0f0f23 0%, #1a1a2e 100%)
-      `
-    }}>
+    <div className="min-h-screen bg-gray-50">
       <Navigation />
       
       <main className="pt-20">
