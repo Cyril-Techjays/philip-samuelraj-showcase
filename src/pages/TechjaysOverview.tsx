@@ -113,7 +113,7 @@ const TechjaysOverview = () => {
   );
 
   return (
-    <div className="h-screen overflow-hidden" style={{
+    <div className="min-h-screen overflow-x-hidden" style={{
       background: `
         radial-gradient(ellipse at 30% 20%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
         radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
@@ -141,7 +141,7 @@ const TechjaysOverview = () => {
       
       <Navigation />
       
-      <main className="pt-16 h-full flex flex-col">
+      <main className="pt-16">
         <div className="text-center py-8 px-6">
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent">
             Techjays Overview
@@ -152,7 +152,7 @@ const TechjaysOverview = () => {
           <WorldAnimation />
         </div>
 
-        <div className="flex-1 max-w-none mx-auto px-6 py-6 overflow-hidden">
+        <div className="w-full py-8 px-6">
           <div className="marquee-container overflow-hidden relative">
             <div 
               ref={cardsRef} 
