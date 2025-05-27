@@ -142,7 +142,13 @@ const TechjaysOverview = () => {
       <Navigation />
       
       <main className="pt-16 h-full flex flex-col">
-        <div className="flex-shrink-0" style={{ height: '70vh' }}>
+        <div className="text-center py-8 px-6">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent">
+            Techjays Overview
+          </h1>
+        </div>
+        
+        <div className="flex-shrink-0" style={{ height: '60vh' }}>
           <WorldAnimation />
         </div>
 
