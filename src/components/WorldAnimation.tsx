@@ -243,7 +243,7 @@ const WorldAnimation = () => {
       opacity: 0,
       scale: 0.95,
       duration: 1,
-      delay: 3.5,
+      delay: 2.5,
       ease: "power2.inOut"
     })
     .to(logo, {
@@ -311,7 +311,7 @@ const WorldAnimation = () => {
   return (
     <div 
       ref={containerRef}
-      className="relative w-full h-[70vh] overflow-hidden"
+      className="relative w-full h-full overflow-hidden"
       style={{
         background: `
           radial-gradient(ellipse at 30% 20%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
@@ -337,7 +337,7 @@ const WorldAnimation = () => {
         </defs>
       </svg>
       
-      <div className="center-logo absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120px] h-[120px] flex items-center justify-center z-20 opacity-0 scale-0">
+      <div className="center-logo absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80px] h-[80px] flex items-center justify-center z-20 opacity-0 scale-0">
         <img 
           src="/lovable-uploads/6388fe6a-70f7-4859-a81b-d08a6ad8f56e.png" 
           alt="Techjays Logo" 
@@ -347,7 +347,7 @@ const WorldAnimation = () => {
       
       <h1 
         id="world-title"
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl md:text-6xl font-black text-center bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent opacity-0 leading-tight z-30"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl md:text-4xl font-black text-center bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent opacity-0 leading-tight z-30"
       >
         Around the<br />World with AI
       </h1>

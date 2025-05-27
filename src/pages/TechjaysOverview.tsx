@@ -105,7 +105,7 @@ const TechjaysOverview = () => {
     </div>;
 
   return (
-    <div className="min-h-screen" style={{
+    <div className="h-screen overflow-hidden" style={{
       background: `
         radial-gradient(ellipse at 30% 20%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
         radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
@@ -114,17 +114,13 @@ const TechjaysOverview = () => {
     }}>
       <Navigation />
       
-      <main className="pt-20">
-        <WorldAnimation />
-
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Techjays Overview
-          </h1>
+      <main className="pt-16 h-full flex flex-col">
+        <div className="flex-shrink-0" style={{ height: '45vh' }}>
+          <WorldAnimation />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 py-px">
-          <div ref={cardsRef} className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide" style={{
+        <div className="flex-1 max-w-7xl mx-auto px-6 py-4 overflow-hidden">
+          <div ref={cardsRef} className="flex gap-4 overflow-x-auto pb-4 h-full scrollbar-hide" style={{
             scrollSnapType: 'x mandatory'
           }}>
             {companyDetails.map((detail, index) => {
@@ -132,23 +128,23 @@ const TechjaysOverview = () => {
               return (
                 <Card 
                   key={index} 
-                  className="company-card flex-shrink-0 w-80 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0" 
+                  className="company-card flex-shrink-0 w-64 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0 h-fit" 
                   style={{
                     scrollSnapAlign: 'start'
                   }}
                 >
-                  <CardHeader className="pb-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white">
-                        <IconComponent size={20} />
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="p-1.5 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+                        <IconComponent size={16} />
                       </div>
-                      <CardTitle className="text-xl font-semibold text-gray-900">
+                      <CardTitle className="text-lg font-semibold text-gray-900">
                         {detail.title}
                       </CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <p className="text-gray-600 leading-relaxed mb-3">
+                    <p className="text-gray-600 leading-relaxed mb-2 text-sm">
                       {detail.content}
                     </p>
                     {detail.isPartnership && <PartnershipIcons />}
