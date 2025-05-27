@@ -4,7 +4,17 @@ import WorldAnimation from "@/components/WorldAnimation";
 
 const TechjaysOverview = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div 
+      className="min-h-screen"
+      style={{
+        background: `
+          radial-gradient(ellipse at 30% 20%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
+          radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+          radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 60%),
+          linear-gradient(to bottom right, #f9fafb, #f3f4f6)
+        `
+      }}
+    >
       <Navigation />
       
       <main className="pt-20">
