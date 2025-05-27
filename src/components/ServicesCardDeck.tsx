@@ -56,23 +56,25 @@ const ServicesCardDeck = () => {
       const x = offset * 170;
       const z = -absOffset * 120;
       const rotateY = offset * -10;
-      const scale = 1 - (absOffset * 0.13);
-      let opacity = 1 - (absOffset * 0.32);
+      const scale = Math.max(0.7, 1 - (absOffset * 0.13));
+      let opacity = Math.max(0, 1 - (absOffset * 0.32));
       
       if (absOffset > 2) {
         opacity = 0;
       }
       
-      gsap.to(card, {
+      // Use a single timeline for smoother animations
+      const tl = gsap.timeline();
+      tl.to(card, {
         x: x,
         z: z,
         rotateY: rotateY,
         scale: scale,
         opacity: opacity,
-        duration: 1.6,
-        ease: "power4.inOut",
+        duration: 1.2,
+        ease: "power3.out",
         force3D: true,
-        stagger: 0.04 * absOffset
+        transformOrigin: "center center"
       });
       
       card.style.zIndex = (services.length - absOffset).toString();
@@ -83,21 +85,21 @@ const ServicesCardDeck = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentIndex((prev) => (prev + 1) % services.length);
-    setTimeout(() => setIsAnimating(false), 800);
+    setTimeout(() => setIsAnimating(false), 600);
   };
 
   const prevCard = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentIndex((prev) => (prev - 1 + services.length) % services.length);
-    setTimeout(() => setIsAnimating(false), 800);
+    setTimeout(() => setIsAnimating(false), 600);
   };
 
   const goToCard = (index: number) => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentIndex(index);
-    setTimeout(() => setIsAnimating(false), 800);
+    setTimeout(() => setIsAnimating(false), 600);
   };
 
   useEffect(() => {
@@ -107,12 +109,10 @@ const ServicesCardDeck = () => {
   useEffect(() => {
     // Initialize animations
     if (containerRef.current) {
-      gsap.from(containerRef.current, {
-        y: 100,
-        opacity: 0,
-        duration: 2.2,
-        ease: "power4.inOut"
-      });
+      gsap.fromTo(containerRef.current, 
+        { y: 100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }
+      );
     }
 
     // Auto-play
@@ -169,30 +169,31 @@ const ServicesCardDeck = () => {
               ref={(el) => {
                 if (el) cardsRef.current[index] = el;
               }}
-              className="absolute w-[700px] h-[400px] bg-white/95 backdrop-blur-sm rounded-3xl p-16 shadow-2xl border border-white/50 cursor-pointer transition-all duration-300 hover:shadow-3xl flex items-center gap-12"
+              className="absolute w-[700px] h-[400px] bg-white/95 backdrop-blur-sm rounded-3xl p-16 shadow-2xl border border-white/50 cursor-pointer flex items-center gap-12"
               style={{
                 transformStyle: 'preserve-3d',
-                backfaceVisibility: 'hidden'
+                backfaceVisibility: 'hidden',
+                willChange: 'transform, opacity'
               }}
               onMouseEnter={() => {
                 const card = cardsRef.current[index];
-                if (card && index === currentIndex) {
+                if (card && index === currentIndex && !isAnimating) {
                   gsap.to(card, { 
                     scale: 1.05, 
                     boxShadow: "0 50px 120px rgba(102,126,234,0.28)", 
-                    duration: 0.5, 
-                    ease: "expo.out" 
+                    duration: 0.4, 
+                    ease: "power2.out" 
                   });
                 }
               }}
               onMouseLeave={() => {
                 const card = cardsRef.current[index];
-                if (card && index === currentIndex) {
+                if (card && index === currentIndex && !isAnimating) {
                   gsap.to(card, { 
                     scale: 1, 
                     boxShadow: "0 20px 60px rgba(0,0,0,0.3)", 
-                    duration: 0.5, 
-                    ease: "expo.out" 
+                    duration: 0.4, 
+                    ease: "power2.out" 
                   });
                 }
               }}
@@ -216,7 +217,8 @@ const ServicesCardDeck = () => {
         <div className="flex items-center justify-center gap-10 mt-16">
           <button
             onClick={prevCard}
-            className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+            disabled={isAnimating}
+            className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 disabled:opacity-50"
           >
             <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
               <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -228,7 +230,8 @@ const ServicesCardDeck = () => {
               <button
                 key={index}
                 onClick={() => goToCard(index)}
-                className={`h-3 rounded-full transition-all duration-300 ${
+                disabled={isAnimating}
+                className={`h-3 rounded-full transition-all duration-300 disabled:opacity-50 ${
                   index === currentIndex 
                     ? 'w-10 bg-gradient-to-r from-purple-500 to-blue-500' 
                     : 'w-3 bg-gray-300 hover:bg-gray-400'
@@ -239,7 +242,8 @@ const ServicesCardDeck = () => {
           
           <button
             onClick={nextCard}
-            className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+            disabled={isAnimating}
+            className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 disabled:opacity-50"
           >
             <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
               <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
