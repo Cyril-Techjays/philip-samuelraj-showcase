@@ -25,8 +25,11 @@ const Index = () => {
     }, 3000);
 
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20; // -10 to 10
-      const y = (e.clientY / window.innerHeight - 0.5) * 20; // -10 to 10
+      // Reduce parallax effect on smaller screens
+      const isMobile = window.innerWidth <= 768;
+      const multiplier = isMobile ? 5 : 20;
+      const x = (e.clientX / window.innerWidth - 0.5) * multiplier;
+      const y = (e.clientY / window.innerHeight - 0.5) * multiplier;
       setMousePosition({ x, y });
     };
 
@@ -47,7 +50,7 @@ const Index = () => {
           showLoader ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        <h1 className="text-white text-6xl md:text-8xl font-light tracking-wide">
+        <h1 className="text-white text-4xl sm:text-6xl md:text-8xl font-light tracking-wide px-4 text-center">
           {greetings[currentGreeting]}
         </h1>
       </div>
@@ -56,34 +59,44 @@ const Index = () => {
       <div className="min-h-screen" style={{ backgroundColor: '#F5F5F5' }}>
         <Navigation />
         
-        <main className="pt-20 min-h-screen flex flex-col relative overflow-hidden">
-          {/* Hero Image positioned with parallax effect */}
-          <div 
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-0 transition-transform duration-100 ease-out"
-            style={{
-              transform: `translate(-50%, 0) translate(${mousePosition.x}px, ${mousePosition.y}px)`
-            }}
-          >
-            <img 
-              src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
-              alt="Philip Samuelraj"
-              className="w-[800px] h-[890px] object-cover object-top"
-            />
+        <main className="pt-16 sm:pt-20 min-h-screen flex flex-col relative overflow-hidden">
+          {/* Hero Image Container - Responsive */}
+          <div className="absolute inset-0 flex items-end justify-center">
+            <div 
+              className="relative transition-transform duration-100 ease-out"
+              style={{
+                transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
+              }}
+            >
+              <img 
+                src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
+                alt="Philip Samuelraj"
+                className="
+                  w-[280px] h-[320px] 
+                  sm:w-[400px] sm:h-[480px]
+                  md:w-[600px] md:h-[700px]
+                  lg:w-[700px] lg:h-[800px]
+                  xl:w-[800px] xl:h-[890px]
+                  object-cover object-center
+                  max-h-[85vh] sm:max-h-[90vh]
+                "
+              />
+            </div>
           </div>
 
-          {/* Right Side Text */}
-          <div className="absolute top-1/2 right-8 transform -translate-y-1/2 text-right">
-            <div className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-500 leading-relaxed">
+          {/* Right Side Text - Responsive positioning */}
+          <div className="absolute top-1/2 right-4 sm:right-6 md:right-8 transform -translate-y-1/2 text-right z-10">
+            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light text-gray-500 leading-relaxed">
               <div>Innovator</div>
               <div>Investor</div>
               <div>Leader</div>
             </div>
           </div>
 
-          {/* Bottom Text */}
-          <div className="absolute bottom-8 left-0 right-0">
+          {/* Bottom Text - Responsive sizing */}
+          <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-0 right-0 z-10">
             <div className="overflow-hidden whitespace-nowrap">
-              <div className="animate-marquee inline-block text-8xl md:text-9xl lg:text-[12rem] font-bold text-gray-500 tracking-tight">
+              <div className="animate-marquee inline-block text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-gray-500 tracking-tight opacity-80">
                 Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — Philip Samuelraj — 
               </div>
             </div>
