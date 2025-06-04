@@ -21,7 +21,7 @@ const MediaMentions = () => {
             <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                 <h3 className="text-2xl font-semibold text-gray-900 mb-2 md:mb-0">
-                  "The Future of Technology Leadership"
+                  "Techjays Interviews"
                 </h3>
                 <span className="text-gray-500 font-medium">Forbes</span>
               </div>
