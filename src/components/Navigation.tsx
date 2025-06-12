@@ -1,4 +1,3 @@
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Globe } from "lucide-react";
 import { useState } from "react";
@@ -14,7 +13,6 @@ const Navigation = () => {
     { href: "/techjays-overview", label: "Techjays Overview" },
     { href: "/investment-portfolio", label: "Investment Portfolio" },
     { href: "/media-mentions", label: "Media Mentions" },
-    { href: "/hobbies", label: "Hobbies" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -27,10 +25,10 @@ const Navigation = () => {
     setCurrentSection(label);
     setCurtainVisible(true);
     
-    // Navigate to new page at 2 seconds (middle of 4-second animation)
+    // Navigate to new page at 3 seconds (after curtain starts sliding up)
     setTimeout(() => {
       navigate(href);
-    }, 2000);
+    }, 3000);
   };
 
   const handleCurtainComplete = () => {
@@ -64,10 +62,7 @@ const Navigation = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 px-4 py-2 bg-gray-900 text-white rounded-full text-sm">
-                <Globe size={16} />
-                <span>Located in Menlo Park, CA</span>
-              </div>
+              
             </div>
           </div>
         </div>
