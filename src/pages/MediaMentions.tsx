@@ -26,6 +26,7 @@ const mediaMentionsData: MediaMention[] = [
     date: "NOVEMBER 2024"
   },
   {
+    
     source: "HARVARD BUSINESS REVIEW",
     headline: "Building Sustainable Tech Companies",
     date: "OCTOBER 2024"

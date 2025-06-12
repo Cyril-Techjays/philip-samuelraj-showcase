@@ -71,16 +71,16 @@ const Index = () => {
         <main className="pt-20 min-h-screen flex flex-col relative overflow-hidden">
           {/* Hero Image positioned with parallax effect */}
           <div 
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-0 transition-transform duration-100 ease-out"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-100 ease-out"
             style={{
-              transform: `translate(-50%, 0) translate(${mousePosition.x}px, ${mousePosition.y}px)`
+              transform: `translate(-50%, -50%) translate(${mousePosition.x}px, ${mousePosition.y}px)`
             }}
           >
             <div className="relative">
               <img 
                 src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
                 alt="Philip Samuelraj"
-                className="w-[800px] h-[890px] object-cover object-top cursor-pointer"
+                className="w-[90vw] max-w-[800px] h-auto object-contain object-top cursor-pointer"
                 onClick={() => setShowOptions(!showOptions)}
               />
               
