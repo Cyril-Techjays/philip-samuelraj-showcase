@@ -166,7 +166,6 @@ const MediaMentions = () => {
   return (
     <div ref={backgroundRef} className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center py-20">
       <Navigation />
-      
       {/* Floating Dots Container - Galaxy effect with more dots and shooting stars */}
       <div ref={shapesRef} className="absolute inset-0 w-full h-full z-0 pointer-events-none">
         {/* Add many tiny ethereal blue and purple dots here */}
@@ -199,7 +198,6 @@ const MediaMentions = () => {
         <button ref={prevButtonRef} onClick={prevCard} className="text-gray-800 text-4xl p-2 hover:text-gray-600 transition-colors">←</button>
         <button ref={nextButtonRef} onClick={nextCard} className="text-gray-800 text-4xl p-2 hover:text-gray-600 transition-colors">→</button>
       </div>
-
     </div>
   );
 };

@@ -80,7 +80,7 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
                 alt="Philip Samuelraj"
-                className="w-[90vw] max-w-[800px] h-auto object-contain object-top cursor-pointer"
+                className="w-[90vw] max-w-[800px] h-auto object-cover object-top cursor-pointer"
                 onClick={() => setShowOptions(!showOptions)}
               />
               
