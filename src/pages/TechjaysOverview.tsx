@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -132,7 +131,7 @@ const TechjaysOverview = () => {
         }
         
         .animate-marquee {
-          animation: marquee 40s linear infinite;
+          animation: marquee 20s linear infinite;
         }
         
         .marquee-container:hover .animate-marquee {

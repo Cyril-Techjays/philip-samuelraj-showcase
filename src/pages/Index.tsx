@@ -1,12 +1,16 @@
-
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
+import { useNavigate } from "react-router-dom";
+import { Globe } from "lucide-react";
 
 const Index = () => {
   const [showLoader, setShowLoader] = useState(true);
   const [currentGreeting, setCurrentGreeting] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showOptions, setShowOptions] = useState(false);
   
+  const navigate = useNavigate();
+
   const greetings = [
     "Hello",      // English
     "Bonjour",    // French
@@ -53,8 +57,16 @@ const Index = () => {
       </div>
 
       {/* Main Content */}
-      <div className="min-h-screen" style={{ backgroundColor: '#F5F5F5' }}>
+      <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom right, #6A11CB, #2575FC)' }}>
         <Navigation />
+        
+        {/* Location Text */}
+        <div className="fixed bottom-4 left-4 z-50">
+          <div className="flex items-center space-x-2 px-4 py-2 bg-gray-900 text-white rounded-full text-sm">
+            <Globe size={16} />
+            <span>Located in Menlo Park, CA</span>
+          </div>
+        </div>
         
         <main className="pt-20 min-h-screen flex flex-col relative overflow-hidden">
           {/* Hero Image positioned with parallax effect */}
@@ -64,11 +76,49 @@ const Index = () => {
               transform: `translate(-50%, 0) translate(${mousePosition.x}px, ${mousePosition.y}px)`
             }}
           >
-            <img 
-              src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
-              alt="Philip Samuelraj"
-              className="w-[800px] h-[890px] object-cover object-top"
-            />
+            <div className="relative">
+              <img 
+                src="/lovable-uploads/3c091176-f9d0-4e0e-8d95-d505ba340543.png"
+                alt="Philip Samuelraj"
+                className="w-[800px] h-[890px] object-cover object-top cursor-pointer"
+                onClick={() => setShowOptions(!showOptions)}
+              />
+              
+              {/* Left Option */}
+              <div 
+                className={`absolute left-0 top-1/2 -translate-x-full -translate-y-1/2 transition-all duration-300 ${
+                  showOptions ? 'opacity-100 translate-x-4' : 'opacity-0 -translate-x-8'
+                }`}
+                style={{ left: '-120px' }}
+              >
+                <button 
+                  className="bg-white/90 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg hover:bg-white transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate('/grow-with-me');
+                  }}
+                >
+                  <span className="text-gray-900 font-medium">Grow with me</span>
+                </button>
+              </div>
+
+              {/* Right Option */}
+              <div 
+                className={`absolute right-0 top-1/2 translate-x-full -translate-y-1/2 transition-all duration-300 ${
+                  showOptions ? 'opacity-100 -translate-x-4' : 'opacity-0 translate-x-8'
+                }`}
+              >
+                <button 
+                  className="bg-white/90 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg hover:bg-white transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate('/know-about-me');
+                  }}
+                >
+                  <span className="text-gray-900 font-medium">Know About me</span>
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Right Side Text */}
