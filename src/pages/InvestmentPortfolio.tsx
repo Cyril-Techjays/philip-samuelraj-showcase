@@ -29,16 +29,18 @@ interface InvestmentCard {
   year: number;
   logo: string;
   image: string;
+  caseStudyUrl: string;
 }
 
 const investments: InvestmentCard[] = [
   {
-    name: "Via",
+    name: "Via Analytics",
     description: "Via Analytics is an innovative Generative AI solution designed to enhance business decision-making through advanced data analysis.",
     industry: "Artificial Intelligence",
     year: 2023,
     logo: "👁️",
-    image: viaImage
+    image: viaImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/qa-case-study-via-analytics"
   },
   {
     name: "Push",
@@ -46,7 +48,8 @@ const investments: InvestmentCard[] = [
     industry: "Clean Energy",
     year: 2023,
     logo: "🌱",
-    image: pushImage
+    image: pushImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/push"
   },
   {
     name: "Pepcare",
@@ -54,7 +57,8 @@ const investments: InvestmentCard[] = [
     industry: "Healthcare",
     year: 2022,
     logo: "⚛️",
-    image: pepcareImage
+    image: pepcareImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/pepcare"
   },
   {
     name: "Orbcomm",
@@ -62,15 +66,17 @@ const investments: InvestmentCard[] = [
     industry: "Blockchain",
     year: 2022,
     logo: "🔒",
-    image: orbcommImage
+    image: orbcommImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/qa-case-study-automation-testing-for-orbcomm"
   },
   {
-    name: "Operatiorai",
+    name: "Operator AI",
     description: "AI-powered functional testing that reduces manual effort, enhances accuracy, and speeds up software delivery.",
     industry: "Healthcare Tech",
     year: 2023,
     logo: "🤖",
-    image: operatioraiImage
+    image: operatioraiImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/ai-powered-testing-transformation-with-operator-ai"
   },
   {
     name: "Midalloy",
@@ -78,7 +84,8 @@ const investments: InvestmentCard[] = [
     industry: "Cloud Computing",
     year: 2022,
     logo: "☁️",
-    image: midalloyImage
+    image: midalloyImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/qa-case-study-midalloy"
   },
   {
     name: "Hawx",
@@ -86,7 +93,8 @@ const investments: InvestmentCard[] = [
     industry: "Data Science",
     year: 2023,
     logo: "📊",
-    image: hawxImage
+    image: hawxImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/hawx"
   },
   {
     name: "Decerna",
@@ -94,7 +102,8 @@ const investments: InvestmentCard[] = [
     industry: "Cybersecurity",
     year: 2022,
     logo: "🛡️",
-    image: decernaImage
+    image: decernaImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/decerna"
   },
   {
     name: "Bracketology",
@@ -102,7 +111,8 @@ const investments: InvestmentCard[] = [
     industry: "IoT",
     year: 2023,
     logo: "🔌",
-    image: bracketologyImage
+    image: bracketologyImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/bracketology"
   },
   {
     name: "Belongly",
@@ -110,7 +120,8 @@ const investments: InvestmentCard[] = [
     industry: "AR/VR",
     year: 2022,
     logo: "👓",
-    image: belonglyImage
+    image: belonglyImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/belongly"
   },
   {
     name: "Aquacycl",
@@ -118,7 +129,8 @@ const investments: InvestmentCard[] = [
     industry: "Biotechnology",
     year: 2023,
     logo: "🧬",
-    image: aquacyclImage
+    image: aquacyclImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/aquacycl"
   },
   {
     name: "Ameya",
@@ -126,7 +138,8 @@ const investments: InvestmentCard[] = [
     industry: "FinTech",
     year: 2022,
     logo: "💳",
-    image: ameyaImage
+    image: ameyaImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/qa-case-study-ameya"
   },
   {
     name: "Aervivo",
@@ -134,7 +147,8 @@ const investments: InvestmentCard[] = [
     industry: "Edge Computing",
     year: 2023,
     logo: "🌐",
-    image: aervivoImage
+    image: aervivoImage,
+    caseStudyUrl: "https://www.techjays.com/case-studies/qa-case-study-aervivo"
   }
 ];
 
@@ -184,14 +198,7 @@ const InvestmentCard = ({ investment, index }: { investment: InvestmentCard; ind
     };
 
     const handleClick = () => {
-      card.classList.toggle(styles.flipped);
-      
-      // Add flip animation
-      gsap.to(inner, {
-        rotationY: card.classList.contains(styles.flipped) ? 180 : 0,
-        duration: 0.8,
-        ease: "power2.inOut"
-      });
+      window.open(investment.caseStudyUrl, '_blank');
     };
 
     card.addEventListener("mouseenter", handleMouseEnter);
@@ -203,10 +210,10 @@ const InvestmentCard = ({ investment, index }: { investment: InvestmentCard; ind
       card.removeEventListener("mouseleave", handleMouseLeave);
       card.removeEventListener("click", handleClick);
     };
-  }, []);
+  }, [investment.caseStudyUrl]);
 
   return (
-    <div ref={cardRef} className={styles["flip-card"]}>
+    <div ref={cardRef} className={`${styles["flip-card"]} cursor-pointer`}>
       <div ref={innerRef} className={styles["flip-card-inner"]}>
         <div className={styles["flip-card-front"]}>
           <img 
@@ -218,7 +225,12 @@ const InvestmentCard = ({ investment, index }: { investment: InvestmentCard; ind
         </div>
         <div className={styles["flip-card-back"]}>
           <div className={styles["back-content"]}>
-            {/* Removed name, description, and year from back */}
+            <h3 className="text-2xl font-bold mb-4">{investment.name}</h3>
+            <p className="text-gray-600 mb-4">{investment.description}</p>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-500">{investment.industry}</span>
+              <span className="text-sm text-gray-500">{investment.year}</span>
+            </div>
           </div>
         </div>
       </div>
